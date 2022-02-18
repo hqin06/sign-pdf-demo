@@ -2,13 +2,21 @@
 	"pages": [{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "合同签字DOME"
 			}
 		},
 		{
 			"path": "pages/index/SignPdf",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "文件签名"
+			}
+		},
+		{
+			"path": "pages/index/sign",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
 			}
 		}
 	],

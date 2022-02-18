@@ -13,15 +13,12 @@
 				websrc: '',
 				appUrl: '/hybrid/html/readPdf/index/index.html', //app内的web地址
 				pdfUrl: {
-					url: ''
+					url: './my.pdf'
 				},
 				signImgUrl: {
-					url: ''
+					url: './sign.jpeg'
 				},
-				checkImgUrl: {
-					url: ''
-				},
-				title: '签字', //pdf文件名称
+				title: '合同签名', //pdf文件名称
 			}
 		},
 		onLoad(query) {
@@ -39,9 +36,7 @@
 						encodeURIComponent(
 							this.title) + '&signImgUrl=' +
 						encodeURIComponent(
-							this.signImgUrl.url) + '&checkImgUrl=' +
-						encodeURIComponent(
-							this.checkImgUrl.url)
+							this.signImgUrl.url)
 					//#endif
 				} catch (e) {
 					uni.showModal({
@@ -53,7 +48,16 @@
 				}
 			},
 			async handleMessage(evt) {
-				console.log(evt.detail.data, 'rfrfrfr')
+				console.log(evt.detail.data, '小程序接受到的消息');
+				if (evt.detail.data[0]?.type === 'reSign') {
+					uni.navigateTo({
+						url: `sign`
+					});
+				} else {
+					uni.navigateBack({
+						delta: 1
+					});
+				}
 			}
 		}
 

@@ -15,17 +15,14 @@
 					<span class="br" id="signImg-br" style="touch-action: none"></span>
 					<img src="" id="signUrl" class="my-img">
 				</div>
-				<div class="box" id="my-checkImg">
-					<span class="br" id="checkImg-br" style="touch-action: none"></span>
-					<img src="" id="checkUrl" class="my-img">
-				</div>
 			</div>
 		</div>
 		<div class="tips">
-			请将签名、时间、勾选图标拖拽到文件对应位置
+			请将签名、时间拖拽到文件对应位置
 		</div>
 		<div class="my-btn-box">
 			<div class="my-btn-content">
+				<div class="my-btn-item my-sure" onclick="onReviewSign()">重新签名</div>
 				<div class="my-btn-item my-sure" onclick="onSubmit()">保存</div>
 				<div class="my-btn-item my-cancal" onclick="cancal()">取消</div>
 			</div>
@@ -140,7 +137,6 @@
 			// 确定
 			function onSubmit() {
 				let oSignImg = document.getElementById('my-signImg');
-				var oCheckImg = document.getElementById('my-checkImg');
 				var oTimeImg = document.getElementById('my-timeImg');
 				var page = localStorage.getItem("myPageNum");
 				page = parseInt(page);
@@ -161,16 +157,6 @@
 							top: oSignImg.offsetTop,
 							left: oSignImg.offsetLeft,
 						},
-						checkDatas: {
-							page_no: page,
-							image_id: '',
-							pdf_height: pdf_height,
-							pdf_width: document.documentElement.clientWidth,
-							width: oCheckImg.offsetWidth,
-							height: oCheckImg.offsetHeight,
-							top: oCheckImg.offsetTop,
-							left: oCheckImg.offsetLeft,
-						},
 						timeDatas: {
 							page_no: page,
 							image_id: timedata,
@@ -185,13 +171,19 @@
 					}
 				});
 			}
+			function onReviewSign(){
+				uni.postMessage({
+					data: {
+						type:'reSign'
+					}
+				});
+			}
 			// 初始化pdf等
 			$(function() {
 				let url = decodeURIComponent(getUrlParam('url'));
 				let signImgUrl = decodeURIComponent(getUrlParam('signImgUrl'))
-				document.getElementById('signUrl').src = signImgUrl;
-				let checkImgUrl = decodeURIComponent(getUrlParam('checkImgUrl'))
-				document.getElementById('checkUrl').src = checkImgUrl;
+				document.getElementById('signUrl').src = './sign.jpeg' || signImgUrl;
+
 				let name = getUrlParam('tname');
 				document.title = decodeURIComponent(name);
 				let myHeight = 550;
@@ -208,19 +200,14 @@
 			});
 			window.onload = function() {
 				var oSignImg = document.getElementById('my-signImg');
-				var oCheckImg = document.getElementById('my-checkImg');
 				var oTimeImg = document.getElementById('my-timeImg');
 				var oFatherBox = document.getElementById('drag-drop-box');
 				var oSignBr = document.getElementById('signImg-br');
-				var oCheckBr = document.getElementById('checkImg-br');
 				var oTimeBr = document.getElementById('timeImg-br');
 				oSignImg.style.width = '120px';
-				oCheckImg.style.width = '26px';
 				initListener('father', oSignImg);
-				initListener('father', oCheckImg);
 				initListener('father', oTimeImg);
 				initListener('bottomRight', oSignBr, oSignImg);
-				initListener('bottomRight', oCheckBr, oCheckImg);
 				initListener('bottomRight', oTimeBr, oTimeImg);
 
 				function initListener(type, eDom, faterDom) {

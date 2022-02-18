@@ -3,7 +3,7 @@ body {
 	width: 100%;
 	padding: 0;
 	margin: 0;
-	overflow: hidden;
+	/* overflow: hidden; */
 }
 
 /* 底部按钮 */
@@ -46,7 +46,7 @@ body {
 }
 
 .my-btn-content {
-	overflow: hidden;
+	/* overflow: hidden; */
 	display: flex;
 	flex-direction: column;
 	width: 100%;
@@ -57,7 +57,6 @@ body {
 	text-align: center;
 	line-height: 40px;
 	border-radius: 6px;
-	
 	border: 1px solid #ddd;
 }
 .my-cancal {
